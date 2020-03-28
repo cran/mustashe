@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Getting Started</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Getting Started</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(mustashe)</span></code></pre></div>
+<p>The purpose of the ‘mustashe’ R package is to save objects that result from some computation, then load the object from file the next time the computation is performed. In other words, the first time a chunk of code is evaluated, the output can be <em>stashed</em> for the next time the code chunk is run.</p>
+<div id="basic-example" class="section level2">
+<h2>Basic example</h2>
+<p>Below is a brief example outlining the use of the primary function from the package, <code>stash()</code>. First we must load the ‘mustashe’ library.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(mustashe)</span></code></pre></div>
+<p>Say we are performing a long-running computation (simulated here using <code>Sys.sleep()</code> to pause for a few seconds) that produces the object named <code>x</code>. The name of the object to stash <code>&quot;x&quot;</code> and the code itself are passed to <code>stash()</code> as follows. (I used the package <a href="https://CRAN.R-project.org/package=tictoc">‘tictoc’</a> to time the execution of the code.)</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">tic</span>(<span class="st">&quot;long-running computation&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">stash</span>(<span class="st">&quot;x&quot;</span>, {</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="kw">Sys.sleep</span>(<span class="dv">5</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  x &lt;-<span class="st"> </span><span class="dv">5</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>})</span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; Stashing object.</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="kw">toc</span>()</span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; long-running computation: 5.283 sec elapsed</span></span></code></pre></div>
+<p>‘mustashe’ tells us that the object was stashed, and we can see that <code>x</code> was successfully assigned the value 5.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>x</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; [1] 5</span></span></code></pre></div>
+<p>Say we are done for the day, so we close RStudio and go home. When we return the next day and continue on the same analysis, we really don’t want to have to run the same computation again since it will have the same result as yesterday. Thanks to ‘mustashe’, the code is not evaluated and, instead, the object <code>x</code> is loaded from file.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">tic</span>(<span class="st">&quot;long-running computation&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">stash</span>(<span class="st">&quot;x&quot;</span>, {</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="kw">Sys.sleep</span>(<span class="dv">5</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  x &lt;-<span class="st"> </span><span class="dv">5</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>})</span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; Loading stashed object.</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="kw">toc</span>()</span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; long-running computation: 0.047 sec elapsed</span></span></code></pre></div>
+<p>That’s the basic use case of ‘mustashe’! Any issues and feedback can be submitted <a href="https://github.com/jhrcook/mustashe/issues">here</a>. Continue reading below for explanations of other useful features of ‘mustashe’.</p>
+<div id="why-not-use-projecttemplates-cache-function" class="section level3">
+<h3>Why not use ’ProjectTemplate’s <code>cache()</code> function?</h3>
+<p>Originally I tried to use the <code>cache()</code> function from <a href="https://CRAN.R-project.org/package=ProjectTemplate">‘ProjectTemplate’</a>, but ran into a few problems.</p>
+<p>The first was, to use it without modification, I would need to be using the ‘ProjectTemplate’ system for my whole analysis project. It first checks if all of the expected directories and components are in place, throwing an error when they are not.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>ProjectTemplate<span class="op">::</span><span class="kw">cache</span>(<span class="st">&quot;x&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; Current Directory: mustashe is not a valid ProjectTemplate directory because one or more mandatory directories are missing.  If you believe you are in a ProjectTemplate directory and seeing this message in error, try running migrate.project().  migrate.project() will ensure the ProjectTemplate structure is consistent with your version of ProjectTemplate.</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; Change to a valid ProjectTemplate directory and run cache() again.</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; Error in .quietstop():</span></span></code></pre></div>
+<p>I then tried copying the source code for the <code>cache()</code> function to my project and tweaking it to work (mainly removing internal checks for ‘ProjectTemplate’ system). I did this and thought it was working: on the first pass it would cache the result, and on the second it would load from the cache. However, in a new session of R, it would not just load from the cache, but, instead, evaluate the code and cache the results. After a bit of exploring the <code>cache()</code> source code, I realized the problem was that ‘ProjectTemplate’ compares the current value of the object to be cached with the object that is cached. Of course, this requires the object to be in the environment already, which it is in a ‘ProjectTemplate’ system after running <code>load.project()</code> because that loads the cache (lazily) into the R environment. I do not want this behavior, and thus the caching system used by ‘ProjectTemplate’ was insufficient for my needs.</p>
+<p>That said, I <em>heavily</em> relied upon the code for <code>cache()</code> when creating <code>stash()</code>. This would have been far more difficult to do without reference to ‘ProjectTemplate’.</p>
+</div>
+</div>
+<div id="features" class="section level2">
+<h2>Features</h2>
+<p>There are two major features of the <code>stash()</code> function from ‘mustashe’ not covered in the basic example above:</p>
+<ol style="list-style-type: decimal">
+<li>‘mustashe’ “remembers” the code passed to <code>stash()</code> and will re-evaluate the code if it has changed.</li>
+<li>Dependencies can be explicitly linked to the stashed object so that the code is re-evaluated if the dependencies change.</li>
+</ol>
+<p>These two features are demonstrated below.</p>
+<div id="mustashe-remembers-the-code" class="section level3">
+<h3>‘mustashe’ “remembers” the code</h3>
+<p>If the code that creates an object changes, then the object itself is likely to have changed. Thus, ‘mustashe’ “remembers” the code and re-evaluates the code if it has been changed. Here is an example, again using ‘tictoc’ to indicate when the code is evaluated.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">tic</span>()</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">stash</span>(<span class="st">&quot;a&quot;</span>, {</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="kw">Sys.sleep</span>(<span class="dv">3</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>  a &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">5</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>})</span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; Stashing object.</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="kw">toc</span>()</span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; 3.012 sec elapsed</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">tic</span>()</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">stash</span>(<span class="st">&quot;a&quot;</span>, {</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="kw">Sys.sleep</span>(<span class="dv">3</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a>  a &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a>})</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; Updating stash.</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="kw">toc</span>()</span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; 3.01 sec elapsed</span></span></code></pre></div>
+<p><strong>However, ‘mustashe’ is insensitive to changes in comments and other style-based adjustments to the code.</strong> In the next example, a comment has been added, but we see that the object is loaded from the stash.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">stash</span>(<span class="st">&quot;a&quot;</span>, {</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="kw">Sys.sleep</span>(<span class="dv">3</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="co"># Here is a new comment.</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  a &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>})</span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt; Loading stashed object.</span></span></code></pre></div>
+<p>And below is the code from a horrible person, but ‘mustashe’ still loads the object from the stash.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">stash</span>(<span class="st">&quot;a&quot;</span>, {</span>
+<span id="cb10-2"><a href="#cb10-2"></a>        <span class="kw">Sys.sleep</span>(    <span class="dv">3</span>  )</span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a>    <span class="co"># Here is a comment.</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a>a=<span class="kw">runif</span>(  <span class="dv">10</span>  )      <span class="co"># Another comment</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>})</span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; Loading stashed object.</span></span></code></pre></div>
+</div>
+<div id="dependencies" class="section level3">
+<h3>Dependencies</h3>
+<p>Dependencies can be explicitly linked to an object to make sure that if they change, the stashed object is re-evaluated. “Dependency” in this case could refer to data frames that are used to create another (e.g. summarizing a data frame’s columns), inputs to a function, etc.</p>
+<p>The following demonstrates this with a simple example where <code>x</code> is used to calculate <code>y</code>. By passing <code>&quot;x&quot;</code> to the <code>depends_on</code> argument, when the value of <code>x</code> is changed, the code to create <code>y</code> is re-evaluated</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="kw">stash</span>(<span class="st">&quot;y&quot;</span>, <span class="dt">depends_on =</span> <span class="st">&quot;x&quot;</span>, {</span>
+<span id="cb11-4"><a href="#cb11-4"></a>  y &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>})</span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; Stashing object.</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co"># Value of `y`</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a>y</span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<p>The second time this is run without changing <code>x</code>, the value for <code>y</code> is loaded from the stash.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">stash</span>(<span class="st">&quot;y&quot;</span>, <span class="dt">depends_on =</span> <span class="st">&quot;x&quot;</span>, {</span>
+<span id="cb12-2"><a href="#cb12-2"></a>  y &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>})</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt; Loading stashed object.</span></span></code></pre></div>
+<p>However, if we change the value of <code>x</code>, then the code is re-evaluated and the stash for <code>y</code> is updated.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>x &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">stash</span>(<span class="st">&quot;y&quot;</span>, <span class="dt">depends_on =</span> <span class="st">&quot;x&quot;</span>, {</span>
+<span id="cb13-4"><a href="#cb13-4"></a>  y &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>})</span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt; Updating stash.</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="co"># Value of `y`</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>y</span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt; [1] 101</span></span></code></pre></div>
+<p>Multiple dependencies can be passed as a vector to <code>depends_on</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">stash</span>(<span class="st">&quot;y&quot;</span>, <span class="dt">depends_on =</span> <span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;a&quot;</span>), {</span>
+<span id="cb14-2"><a href="#cb14-2"></a>  y &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>a</span>
+<span id="cb14-3"><a href="#cb14-3"></a>})</span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt; Updating stash.</span></span></code></pre></div>
+</div>
+<div id="unstashing-and-clearing-stash" class="section level3">
+<h3>Unstashing and clearing stash</h3>
+<p>To round up the explanation of the ‘mustashe’ package, the stash can be cleared using <code>unstash()</code> and specific stashes can be removed using <code>unstash()</code>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">unstash</span>(<span class="st">&quot;a&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; Unstashing &#39;a&#39;.</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">clear_stash</span>()</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co">#&gt; Clearing stash.</span></span></code></pre></div>
+<hr />
+</div>
+<div id="contact" class="section level3">
+<h3>Contact</h3>
+<p>Any issues and feedback on ‘mustashe’ can be submitted <a href="https://github.com/jhrcook/mustashe/issues">here</a>. I can be reached through the contact form on my <a href="https://joshuacook.netlify.com">website</a> or on Twitter <a href="https://twitter.com/JoshDoesa">@JoshDoesa</a></p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

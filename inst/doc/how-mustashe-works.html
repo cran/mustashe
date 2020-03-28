@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>How ‘mustashe’ works</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">How ‘mustashe’ works</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(mustashe)</span></code></pre></div>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>The following is the actual code for the <code>stash()</code> function, the main function of the ‘mustashe’ package. I have only added a few more comments for clarification.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>stash &lt;-<span class="st"> </span><span class="cf">function</span>(var, code, <span class="dt">depends_on =</span> <span class="ot">NULL</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    </span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="co"># Make sure the stashing directory &quot;.mustashe&quot; is available.</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="kw">check_stash_dir</span>()</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    </span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="co"># Deparse and format the code.</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    deparsed_code &lt;-<span class="st"> </span><span class="kw">deparse</span>(<span class="kw">substitute</span>(code))</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    formatted_code &lt;-<span class="st"> </span><span class="kw">format_code</span>(deparsed_code)</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="co"># Make sure the `var` and `code` are not `NULL`.</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="cf">if</span> (<span class="kw">is.null</span>(var)) <span class="kw">stop</span>(<span class="st">&quot;`var` cannot be NULL&quot;</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="cf">if</span> (formatted_code <span class="op">==</span><span class="st"> &quot;NULL&quot;</span>) <span class="kw">stop</span>(<span class="st">&quot;`code` cannot be NULL&quot;</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a>    <span class="co"># Make a new hash table.</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>    new_hash_tbl &lt;-<span class="st"> </span><span class="kw">make_hash_table</span>(formatted_code, depends_on)</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a>    <span class="co"># if the variable has been stashed:</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>    <span class="co">#     if the hash tables are equivalent:</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>    <span class="co">#         load the stored variable</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>    <span class="co">#     else:</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="co">#         make a new stash</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="co"># else:</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="co">#     make a new stash</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="cf">if</span> (<span class="kw">has_been_stashed</span>(var)) {</span>
+<span id="cb2-25"><a href="#cb2-25"></a>        old_hash_tbl &lt;-<span class="st"> </span><span class="kw">get_hash_table</span>(var)</span>
+<span id="cb2-26"><a href="#cb2-26"></a>        <span class="cf">if</span> (<span class="kw">hash_tables_are_equivalent</span>(old_hash_tbl, new_hash_tbl)) {</span>
+<span id="cb2-27"><a href="#cb2-27"></a>            <span class="kw">message</span>(<span class="st">&quot;Loading stashed object.&quot;</span>)</span>
+<span id="cb2-28"><a href="#cb2-28"></a>            <span class="kw">load_variable</span>(var)</span>
+<span id="cb2-29"><a href="#cb2-29"></a>        } <span class="cf">else</span> {</span>
+<span id="cb2-30"><a href="#cb2-30"></a>            <span class="kw">message</span>(<span class="st">&quot;Updating stash.&quot;</span>)</span>
+<span id="cb2-31"><a href="#cb2-31"></a>            <span class="kw">new_stash</span>(var, formatted_code, new_hash_tbl)</span>
+<span id="cb2-32"><a href="#cb2-32"></a>        }</span>
+<span id="cb2-33"><a href="#cb2-33"></a>    } <span class="cf">else</span> {</span>
+<span id="cb2-34"><a href="#cb2-34"></a>        <span class="kw">message</span>(<span class="st">&quot;Stashing object.&quot;</span>)</span>
+<span id="cb2-35"><a href="#cb2-35"></a>        <span class="kw">new_stash</span>(var, formatted_code, new_hash_tbl)</span>
+<span id="cb2-36"><a href="#cb2-36"></a>    }</span>
+<span id="cb2-37"><a href="#cb2-37"></a></span>
+<span id="cb2-38"><a href="#cb2-38"></a>    <span class="kw">invisible</span>(<span class="ot">NULL</span>)</span>
+<span id="cb2-39"><a href="#cb2-39"></a>}</span></code></pre></div>
+<p>Overall, I believe the logic is quite simple. The steps that the <code>stash()</code> function follows, further explained in the following sections, are:</p>
+<ol style="list-style-type: decimal">
+<li>Deparse and format the code.</li>
+<li>Make a hash table based on the code and dependencies.</li>
+<li>If the object has previously been stashed, then the new hash table and the stashed one are compared. If they are the same, then the object is loaded from memory.</li>
+<li>If the hash tables are different or the object has never been stored, then the code is evaluated and the object and its hash table are stashed.</li>
+</ol>
+</div>
+<div id="deparsing-and-formatting-code" class="section level2">
+<h2>Deparsing and formatting code</h2>
+<p>The first step taken by the <code>stash()</code> function is to deparse and format the code.</p>
+<p>Deparsing the code means to turn the unevaluated expression into a string. The deparsing is done by passing the code <em>immediately</em> to <code>substitute()</code> and <code>deparse()</code>. This must be done immediately, else the code will be evaluated. The <code>substitute()</code> function “returns the parse tree for the (unevaluated) expression <code>expr</code>, substituting any variables bound in env.”</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">substitute</span>(x &lt;-<span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; x &lt;- 1</span></span></code></pre></div>
+<p>The <code>deparse()</code> function “Turn[s] unevaluated expressions into character strings.” Paired with <code>substitute()</code>, it returns a string of the unevaluated code.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">deparse</span>(<span class="kw">substitute</span>(x &lt;-<span class="st"> </span><span class="dv">1</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; [1] &quot;x &lt;- 1&quot;</span></span></code></pre></div>
+<p>With the code now as a string, it is formatted using the <code>tidy_source()</code> function from <a href="https://CRAN.R-project.org/package=formatR">‘formatR’</a>. An internal function in ‘mustashe’, <code>format_code()</code> handles this process:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>format_code &lt;-<span class="st"> </span><span class="cf">function</span>(code) {</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  fmt_code &lt;-<span class="st"> </span>formatR<span class="op">::</span><span class="kw">tidy_source</span>(</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="dt">text =</span> code,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="dt">comment =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="dt">blank =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="dt">arrow =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb5-7"><a href="#cb5-7"></a>    <span class="dt">brace.newline =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="dt">indent =</span> <span class="dv">4</span>,</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="dt">wrap =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="dt">output =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="dt">width.cutoff =</span> <span class="dv">80</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>  )<span class="op">$</span>text.tidy</span>
+<span id="cb5-13"><a href="#cb5-13"></a>  <span class="kw">paste</span>(fmt_code, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>, <span class="dt">collapse =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb5-14"><a href="#cb5-14"></a>}</span>
+<span id="cb5-15"><a href="#cb5-15"></a></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="kw">format_code</span>(<span class="st">&quot;x &lt;- 2&quot;</span>)</span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt; [1] &quot;x &lt;- 2&quot;</span></span></code></pre></div>
+<p>The purpose of formatting the code is so any stylistic changes to the <code>code</code> input do not affect the hash table. To demonstrate this, notice how the output from <code>format_code()</code> is the same between the two different code examples.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">format_code</span>(<span class="st">&quot;x=2&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; [1] &quot;x &lt;- 2&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">format_code</span>((<span class="st">&quot;x &lt;- 2  # a comment&quot;</span>))</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; [1] &quot;x &lt;- 2&quot;</span></span></code></pre></div>
+</div>
+<div id="making-a-hash-table" class="section level2">
+<h2>Making a hash table</h2>
+<p>The hash table is a two-column table with the name and hash value of the code and any (optional) dependencies.</p>
+<p>The hashing is handled by the <a href="https://CRAN.R-project.org/package=digest">‘digest’</a> package. It takes a value and reproducibly produces a unique hash value.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>digest<span class="op">::</span><span class="kw">digest</span>(<span class="st">&quot;mustashe&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; [1] &quot;ac2aad9fdb730500c56009bff6154a7e&quot;</span></span></code></pre></div>
+<p>A hash value is made for the code and for any of the dependencies linked to the object. This process is handled by the <code>make_hash_table(code, depends_on)</code> internal function.</p>
+</div>
+<div id="comparing-hash-tables" class="section level2">
+<h2>Comparing hash tables</h2>
+<p>To tell if the code or dependencies have changed, the new hash table and stashed hashed table are compared. The function underlying this process is <code>all.equal()</code> from base R. This function compares two objects and “If they are different, [a] comparison is still made to some extent, and a report of the differences is returned.”</p>
+<p>Here is an example of using <code>all.equal()</code> to compare two data frames.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Two data frames with a small difference     *</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">b =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>))</span>
+<span id="cb8-3"><a href="#cb8-3"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">b =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>))</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># When the two data frames are equivalent.</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="kw">all.equal</span>(df1, df1)</span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co"># When the two data frmaes are not equivalent.</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="kw">all.equal</span>(df1, df2)</span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; [1] &quot;Component \&quot;b\&quot;: Mean relative difference: 0.1428571&quot;</span></span></code></pre></div>
+<p>A word of caution, if using <code>all.equal()</code> for a boolean comparison (like in an if-statement), make sure to wrap it with <code>isTRUE</code>, otherwise it will return <code>TRUE</code> or comments on the differences, but not <code>FALSE</code>.</p>
+</div>
+<div id="evaluating-code-and-making-a-stash" class="section level2">
+<h2>Evaluating code and making a stash</h2>
+<p>If the hash tables are different, that means the code must be evaluated, the new object be assigned to the desired name (<code>var</code>), and the new hash table and value stashed. This is handled by the internal function <code>new_stash()</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Make a new stash from a variable, code, and hash table.</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>new_stash &lt;-<span class="st"> </span><span class="cf">function</span>(var, code, hash_tbl) {</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  val &lt;-<span class="st"> </span><span class="kw">evaluate_code</span>(code)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="kw">assign_value</span>(var, val)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="kw">write_hash_table</span>(var, hash_tbl)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="kw">write_val</span>(var, val)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>}</span></code></pre></div>
+<p>The first step is to evaluate the code with the <code>evaluate_code(code)</code> function. It uses the <code>parse()</code> and <code>eval()</code> functions and returns the resulting value.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Evaluate the code in a new environment.</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>evaluate_code &lt;-<span class="st"> </span><span class="cf">function</span>(code) {</span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> code), <span class="dt">envir =</span> <span class="kw">new.env</span>())</span>
+<span id="cb10-4"><a href="#cb10-4"></a>}</span></code></pre></div>
+<p>This value is then assigned the desired name in the global environment using the internal <code>assign_value(var, val)</code> function, where <code>.TargetEnv</code> is a variable in the package pointing to <code>.GlobalEnv</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Assign the value `val` to the variable `var`.</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>assign_value &lt;-<span class="st"> </span><span class="cf">function</span>(var, val) {</span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="kw">assign</span>(var, val, <span class="dt">envir =</span> .TargetEnv)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>}</span></code></pre></div>
+<p>Lastly, the hash table and value are written to file using wrapper functions around <code>readr::write_tsv()</code> and <code>saveRDS()</code>.</p>
+<hr />
+<div id="contact" class="section level3">
+<h3>Contact</h3>
+<p>Any issues and feedback on ‘mustashe’ can be submitted <a href="https://github.com/jhrcook/mustashe/issues">here</a>. I can be reached through the contact form on my <a href="https://joshuacook.netlify.com">website</a> or on Twitter <a href="https://twitter.com/JoshDoesa">@JoshDoesa</a>.</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
