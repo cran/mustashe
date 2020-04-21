@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
 
 <title>Getting Started</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -117,9 +129,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -288,7 +297,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -321,7 +331,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; Stashing object.</span></span>
 <span id="cb3-8"><a href="#cb3-8"></a></span>
 <span id="cb3-9"><a href="#cb3-9"></a><span class="kw">toc</span>()</span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; long-running computation: 5.283 sec elapsed</span></span></code></pre></div>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; long-running computation: 5.289 sec elapsed</span></span></code></pre></div>
 <p>‘mustashe’ tells us that the object was stashed, and we can see that <code>x</code> was successfully assigned the value 5.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>x</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; [1] 5</span></span></code></pre></div>
@@ -335,7 +345,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; Loading stashed object.</span></span>
 <span id="cb5-8"><a href="#cb5-8"></a></span>
 <span id="cb5-9"><a href="#cb5-9"></a><span class="kw">toc</span>()</span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; long-running computation: 0.047 sec elapsed</span></span></code></pre></div>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; long-running computation: 0.014 sec elapsed</span></span></code></pre></div>
 <p>That’s the basic use case of ‘mustashe’! Any issues and feedback can be submitted <a href="https://github.com/jhrcook/mustashe/issues">here</a>. Continue reading below for explanations of other useful features of ‘mustashe’.</p>
 <div id="why-not-use-projecttemplates-cache-function" class="section level3">
 <h3>Why not use ’ProjectTemplate’s <code>cache()</code> function?</h3>
@@ -369,7 +379,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <span id="cb7-5"><a href="#cb7-5"></a>})</span>
 <span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; Stashing object.</span></span>
 <span id="cb7-7"><a href="#cb7-7"></a><span class="kw">toc</span>()</span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; 3.012 sec elapsed</span></span></code></pre></div>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; 3.032 sec elapsed</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">tic</span>()</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="kw">stash</span>(<span class="st">&quot;a&quot;</span>, {</span>
 <span id="cb8-3"><a href="#cb8-3"></a>  <span class="kw">Sys.sleep</span>(<span class="dv">3</span>)</span>
@@ -377,7 +387,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <span id="cb8-5"><a href="#cb8-5"></a>})</span>
 <span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; Updating stash.</span></span>
 <span id="cb8-7"><a href="#cb8-7"></a><span class="kw">toc</span>()</span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; 3.01 sec elapsed</span></span></code></pre></div>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; 3.02 sec elapsed</span></span></code></pre></div>
 <p><strong>However, ‘mustashe’ is insensitive to changes in comments and other style-based adjustments to the code.</strong> In the next example, a comment has been added, but we see that the object is loaded from the stash.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">stash</span>(<span class="st">&quot;a&quot;</span>, {</span>
 <span id="cb9-2"><a href="#cb9-2"></a>  <span class="kw">Sys.sleep</span>(<span class="dv">3</span>)</span>
