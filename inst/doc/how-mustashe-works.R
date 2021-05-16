@@ -70,3 +70,6 @@ assign_value <- function(var, val) {
   assign(var, val, envir = .TargetEnv)
 }
 
+## ---- echo=FALSE--------------------------------------------------------------
+unlink(".mustashe", recursive = TRUE)
+

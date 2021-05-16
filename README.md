@@ -7,14 +7,14 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/mustashe)](https://CRAN.R-project.org/package=mustashe)
+[![CRAN
+downloads](http://cranlogs.r-pkg.org/badges/grand-total/mustashe)](https://cran.r-project.org/package=mustashe)
 [![R build
 status](https://github.com/jhrcook/mustashe/workflows/R-CMD-check/badge.svg)](https://github.com/jhrcook/mustashe/actions)
-[![Travis build
-status](https://travis-ci.org/jhrcook/mustashe.svg?branch=master)](https://travis-ci.org/jhrcook/mustashe)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/jhrcook/mustashe?branch=master&svg=true)](https://ci.appveyor.com/project/jhrcook/mustashe)
 [![Codecov test
 coverage](https://codecov.io/gh/jhrcook/mustashe/branch/master/graph/badge.svg)](https://codecov.io/gh/jhrcook/mustashe?branch=master)
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
 The goal of ‘mustashe’ is to save time on long-running computations by
@@ -62,12 +62,12 @@ library.
 ``` r
 tictoc::tic("random simulation")
 stash("rnd_vals", {
-    Sys.sleep(3)
-    rnd_vals <- rnorm(1e5)
+  Sys.sleep(3)
+  rnd_vals <- rnorm(1e5)
 })
 #> Stashing object.
 tictoc::toc()
-#> random simulation: 3.382 sec elapsed
+#> random simulation: 3.638 sec elapsed
 ```
 
 Now, if we come back tomorrow and continue working on the same analysis,
@@ -78,12 +78,12 @@ the code passed to `stash()` has not changed. Instead, the random values
 ``` r
 tictoc::tic("random simulation")
 stash("rnd_vals", {
-    Sys.sleep(3)
-    rnd_vals <- rnorm(1e5)
+  Sys.sleep(3)
+  rnd_vals <- rnorm(1e5)
 })
 #> Loading stashed object.
 tictoc::toc()
-#> random simulation: 0.053 sec elapsed
+#> random simulation: 0.016 sec elapsed
 ```
 
 ## Dependencies
@@ -101,8 +101,8 @@ when the code is evaluated.)
 x <- 100
 
 stash("foo", depends_on = "x", {
-    print("Calculating `foo` using `x`.")
-    foo <- x + 1
+  print("Calculating `foo` using `x`.")
+  foo <- x + 1
 })
 #> Stashing object.
 #> [1] "Calculating `foo` using `x`."
@@ -118,8 +118,8 @@ re-evaluated.
 x <- 100
 
 stash("foo", depends_on = "x", {
-    print("Calculating `foo` using `x`.")
-    foo <- x + 1
+  print("Calculating `foo` using `x`.")
+  foo <- x + 1
 })
 #> Loading stashed object.
 
@@ -133,8 +133,8 @@ But if `x` does change, then `foo` gets re-evaluated.
 x <- 200
 
 stash("foo", depends_on = "x", {
-    print("Calculating `foo` using `x`.")
-    foo <- x + 1
+  print("Calculating `foo` using `x`.")
+  foo <- x + 1
 })
 #> Updating stash.
 #> [1] "Calculating `foo` using `x`."
@@ -143,7 +143,28 @@ foo
 #> [1] 201
 ```
 
------
+## Using [‘here’](https://here.r-lib.org) to create file paths
+
+The [‘here’](https://here.r-lib.org) package is useful for handling file
+paths in R projects, particularly when using an RStudio project. The
+main function, `here::here()`, can be used to create the file path for
+stashing an object by calling `use_here()`.
+
+``` r
+use_here()
+#> The global option "mustashe.here" has been set `TRUE`.
+#> Add `mustashe::use_here(silent = TRUE)` to you're '.Rprofile'
+#>   to have it set automatically in the future.
+```
+
+This behavior can be turned off, too.
+
+``` r
+dont_use_here()
+#> No longer using `here::here()` for creating stash file paths.
+```
+
+------------------------------------------------------------------------
 
 ### Attribution
 

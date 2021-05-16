@@ -4,7 +4,10 @@
 \alias{clear_stash}
 \title{Clear the stash}
 \usage{
-clear_stash()
+clear_stash(verbose = TRUE)
+}
+\arguments{
+\item{verbose}{Whether to print action statements (default TRUE).}
 }
 \value{
 Returns \code{NULL} (invisibly).
@@ -14,5 +17,4 @@ Clears the hidden '.mustashe' directory.
 }
 \examples{
 clear_stash()
-
 }

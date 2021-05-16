@@ -4,7 +4,7 @@
 \alias{stash}
 \title{Stash an object}
 \usage{
-stash(var, code, depends_on = NULL)
+stash(var, code, depends_on = NULL, functional = FALSE, verbose = TRUE)
 }
 \arguments{
 \item{var}{A variable to stash (as a string).}
@@ -13,6 +13,10 @@ stash(var, code, depends_on = NULL)
 
 \item{depends_on}{A vector of other objects that this one depends on. Changes
 to these objects will cause the re-running of the code, next time.}
+
+\item{functional}{If TRUE, return the object rather than setting in the global environment (default FALSE).}
+
+\item{verbose}{Whether to print action statements (default TRUE).}
 }
 \value{
 Returns \code{NULL} (invisibly).
@@ -25,13 +29,16 @@ dependencies change, the code is re-evaluated and the new object is stashed.
 \examples{
 \donttest{
 # A value that is used to create `rnd_vals`.
-x <<- 1e6  # The `<<-` is not normally required, just for this example.
+x <<- 1e6 # The `<<-` is not normally required, just for this example.
 
 # Stash the results of the comuption of `rnd_vals`.
 stash("rnd_vals", depends_on = "x", {
-    # Some long running computation.
-    rnd_vals <- rnorm(x)
+  # Some long running computation.
+  rnd_vals <- rnorm(x)
 })
+
+# Remove directory for this example - do not do in real use.
+unlink(".mustashe", recursive = TRUE)
 }
 
 }
